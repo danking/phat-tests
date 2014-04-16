@@ -22,7 +22,7 @@ VERIFYLOG=$6
 
 N=$((F * 2 + 1))
 
-ERIC=/Users/danking/projects/erlang-phat/tests/eric
+ERIC=/Users/danking/projects/erlang-phat/eric-test-implementation
 
 DO_IMPL="bash ${ERIC}/do.sh"
 STOP_IMPL="bash ${ERIC}/stopnode.sh"
