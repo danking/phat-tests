@@ -2,7 +2,7 @@
 ## test1.sh
 We run test1.sh with this invocation
 
-    bash tests/test1.sh 11 tests/impl workspace
+    bash phat-tests/test1.sh 11 phat-tests/impl workspace
 
 The first argument, `11`, is f.
 
