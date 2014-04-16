@@ -26,6 +26,9 @@ Here's the help doc:
       - workarea -- a directory in which to place temporary files for testing
       - stop_impl -- the group-specific implementation of stopping a node
 
+The ERIC group can run `random-test.sh` like this:
+
+    bash phat-tests/random-test.sh 10 1 10 phat-tests/impl workspace
 
 # Modifying The Scripts For Your Group
 
