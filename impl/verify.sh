@@ -18,6 +18,21 @@ VERIFY_IMPL=$3
   - verify_impl -- a group-specific implementation of file verification
 "
 
+# functions
+
+function find_live_node() {
+    NOT_YET_DEAD_NODE=1
+    grep -q "^${NOT_YET_DEAD_NODE}\$" $WORKAREA/stoppednodes
+    RESULT=$?
+    while [[ $NOT_YET_DEAD_NODE -lt $N && $RESULT -eq 0 ]]
+    do
+        grep -q "^${NOT_YET_DEAD_NODE}\$" $WORKAREA/stoppednodes
+        RESULT=$?
+        NOT_YET_DEAD_NODE=`expr $NOT_YET_DEAD_NODE + 1`
+    done
+    return $NOT_YET_DEAD_NODE
+}
+
 # executable portion
 
 FAILURES=0
@@ -28,12 +43,8 @@ do
     if [[ "$line" =~ createfile\ (.*) ]]; then
         CONTENTS=$(cat $WORKAREA/reference-filesystem/${BASH_REMATCH[1]})
         VR_FILE=file${CONTENTS}
-        NOT_YET_DEAD_NODE=1
-        while [[ ( $NOT_YET_DEAD_NODE -le $N ) && \
-            `grep -q '^$NOT_YET_DEAD_NODE$' $WORKAREA/stoppednodes` -ne 0 ]]
-        do
-            NOT_YET_DEAD_NODE=`expr $NOT_YET_DEAD_NODE + 1`
-        done
+        find_live_node
+        NOT_YET_DEAD_NODE=$?
 
         $VERIFY_IMPL $NOT_YET_DEAD_NODE $VR_FILE $CONTENTS
 
