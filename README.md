@@ -1,4 +1,5 @@
 # Running the Test Scripts
+## test1.sh
 We run test1.sh with this invocation
 
     bash tests/test1.sh 11 tests/impl workspace
@@ -12,6 +13,18 @@ scripts. NB2: Don't include the trailing slash.
 
 The third argument, `workspace`, is a directory to store temporary files in. It
 will be created if it doesn't exist.
+
+## random-test.sh
+Here's the help doc:
+
+    bash random-test.sh f random_seed number_of_runs impl_directory workarea [ verifylog ]
+
+    - f -- the number of failures to resist
+    - random_seed -- the random seed
+    - number_of_runs -- number of times to throw the dice and run something
+    - impl_directory -- a path, relative to CWD, to the impl directory, don't include a trailing slash
+    - workarea -- a directory in which to place temporary files for testing
+    - stop_impl -- the group-specific implementation of stopping a node
 
 
 # Modifying The Scripts For Your Group
@@ -37,4 +50,3 @@ these commands are as follows:
 
   This should return a non-zero exit status if there doesn't exist a file named
   `filename` with the contents `file_contents`.
-
