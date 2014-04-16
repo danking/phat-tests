@@ -19,12 +19,12 @@ Here's the help doc:
 
     bash random-test.sh f random_seed number_of_runs impl_directory workarea [ verifylog ]
 
-    - f -- the number of failures to resist
-    - random_seed -- the random seed
-    - number_of_runs -- number of times to throw the dice and run something
-    - impl_directory -- a path, relative to CWD, to the impl directory, don't include a trailing slash
-    - workarea -- a directory in which to place temporary files for testing
-    - stop_impl -- the group-specific implementation of stopping a node
+      - f -- the number of failures to resist
+      - random_seed -- the random seed
+      - number_of_runs -- number of times to throw the dice and run something
+      - impl_directory -- a path, relative to CWD, to the impl directory, don't include a trailing slash
+      - workarea -- a directory in which to place temporary files for testing
+      - stop_impl -- the group-specific implementation of stopping a node
 
 
 # Modifying The Scripts For Your Group
