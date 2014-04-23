@@ -1,34 +1,28 @@
 #!/bin/bash
 # arguments
+IMPL=`dirname $0`/impl
 
 F=$1
 SEED=$2
 RUNS=$3
-IMPL=$4
+STUBS=$4
 WORKAREA=$5
 VERIFYLOG=$6
+. $IMPL/setup.sh
 
 [ "$#" -eq 5 -o "$#" -eq 6 ] || die "5 or 6 arguments required, $# provided. Valid invocation:
 
-  bash random-test.sh f random_seed number_of_runs impl_directory workarea [ verifylog ]
+  bash random-test.sh f random_seed number_of_runs stubs workarea [ verifylog ]
 
   - f -- the number of failures to resist
   - random_seed -- the random seed
   - number_of_runs -- number of times to throw the dice and run something
-  - impl_directory -- a path, relative to CWD, to the impl directory, don't include a trailing slash
+  - stubs -- test stub implementation (script or directory)
   - workarea -- a directory in which to place temporary files for testing
   - stop_impl -- the group-specific implementation of stopping a node
 "
 
 N=$((F * 2 + 1))
-
-ERIC=/Users/danking/projects/erlang-phat/eric-test-implementation
-
-DO_IMPL="bash ${ERIC}/do.sh"
-STOP_IMPL="bash ${ERIC}/stopnode.sh"
-REVIVE_IMPL="bash ${ERIC}/revivenode.sh"
-STARTNODES_IMPL="bash ${ERIC}/startnodes.sh"
-VERIFY_IMPL="bash ${ERIC}/verify.sh"
 
 # functions
 
