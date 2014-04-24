@@ -7,7 +7,6 @@ IMPL=`dirname $0`/impl
 F=$1
 STUBS=$2
 WORKAREA=$3
-. $IMPL/setup.sh
 
 [ "$#" -eq 3 ] || die "3 arguments required, $# provided. Valid invocation:
 
@@ -18,6 +17,7 @@ WORKAREA=$3
   - workarea -- a directory in which to place temporary files for testing
 "
 
+. $IMPL/setup.sh
 N=$((F * 2 + 1))
 
 

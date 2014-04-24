@@ -8,7 +8,6 @@ RUNS=$3
 STUBS=$4
 WORKAREA=$5
 VERIFYLOG=$6
-. $IMPL/setup.sh
 
 [ "$#" -eq 5 -o "$#" -eq 6 ] || die "5 or 6 arguments required, $# provided. Valid invocation:
 
@@ -22,6 +21,7 @@ VERIFYLOG=$6
   - stop_impl -- the group-specific implementation of stopping a node
 "
 
+. $IMPL/setup.sh
 N=$((F * 2 + 1))
 
 # functions
