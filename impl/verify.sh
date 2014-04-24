@@ -7,14 +7,16 @@ echoerr() { echo "$@" 1>&2; }
 
 N=$1
 WORKAREA=$2
-VERIFY_IMPL=$3
+NUM_CREATED_FILES=$3
+VERIFY_IMPL=$4
 
-[ "$#" -eq 3 ] || die "3 arguments required, $# provided. Valid invocation:
+[ "$#" -eq 4 ] || die "4 arguments required, $# provided. Valid invocation:
 
-  bash verify.sh N workarea verify_impl
+  bash verify.sh N workarea number_of_files verify_impl
 
   - N -- the number of nodes in the Phat cluster
   - workarea -- a directory in which to place temporary files for testing
+  - number_of_files -- the number of things to verify
   - verify_impl -- a group-specific implementation of file verification
 "
 
@@ -55,5 +57,8 @@ do
     fi
 done < $WORKAREA/do-log
 
-echo "Verification found $FAILURES failures"
+SUCCESS_RATE=$(dc --expression="2 k $NUM_CREATED_FILES $FAILURES - $NUM_CREATED_FILES / 100 * p")
+
+echo "Verification found $FAILURES failures out of $NUM_CREATED_FILES \
+tests, thus ${SUCCESS_RATE}% success rate"
 exit $FAILURES

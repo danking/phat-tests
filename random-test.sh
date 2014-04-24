@@ -24,6 +24,8 @@ VERIFYLOG=$6
 
 N=$((F * 2 + 1))
 
+NUM_CREATED_FILES=0
+
 # functions
 
 # timed blocks
@@ -37,6 +39,7 @@ function timer_total() {
         if [ $R -le 10000 ];
         then
             bash ${IMPL}/do.sh createfile 5 $N $WORKAREA $CHILD_SEED "$DO_IMPL"
+            NUM_CREATED_FILES=`expr $NUM_CREATED_FILES + 1`
         elif [ $R -le 15000 -a "`wc -l $WORKAREA/stoppednodes | awk {'print $1'}`" -le $F ];
         then
             bash ${IMPL}/stopnode.sh replica $N $WORKAREA $CHILD_SEED "$STOP_IMPL"
@@ -45,6 +48,7 @@ function timer_total() {
             bash ${IMPL}/revivenode.sh $N $WORKAREA $SEED "$REVIVE_IMPL"
         else
             bash ${IMPL}/do.sh createfile 10 $N $WORKAREA $CHILD_SEED "$DO_IMPL"
+            NUM_CREATED_FILES=`expr $NUM_CREATED_FILES + 1`
         fi
     done
 }
@@ -61,7 +65,7 @@ sleep 10
 echo "Verification..."
 
 if [ -z $VERIFYLOG ]; then
-    bash ${IMPL}/verify.sh $N $WORKAREA "$VERIFY_IMPL"
+    bash ${IMPL}/verify.sh $N $WORKAREA $NUM_CREATED_FILES "$VERIFY_IMPL"
 else
-    bash ${IMPL}/verify.sh $N $WORKAREA "$VERIFY_IMPL" > $VERIFYLOG
+    bash ${IMPL}/verify.sh $N $WORKAREA $NUM_CREATED_FILES "$VERIFY_IMPL" > $VERIFYLOG
 fi
