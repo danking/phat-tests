@@ -1,3 +1,8 @@
+die () {
+    echo "$@" 1>&2
+    exit 1
+}
+
 if [ -d "$STUBS" -a -f "$STUBS/do.sh" ]; then
     DO_IMPL="bash $STUBS/do.sh"
     STOP_IMPL="bash $STUBS/stop.sh"
@@ -12,7 +17,7 @@ elif [ -f "$STUBS" -a -x "$STUBS" ]; then
     VERIFY_IMPL="$STUBS verify"
 elif [ -f "$STUBS" ] && grep DO_IMPL $STUBS >/dev/null 2>&1; then
     . $STUBS
-else
+elif [ "$#" -ge 3 ]; then
     echo "Bad STUBS setting" 1>&2
     exit 1
 fi
