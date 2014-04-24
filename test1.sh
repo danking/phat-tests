@@ -2,29 +2,24 @@
 # timed blocks
 
 # arguments
+IMPL=`dirname $0`/impl
 
 F=$1
-IMPL=$2
+STUBS=$2
 WORKAREA=$3
+. $IMPL/setup.sh
 
 [ "$#" -eq 3 ] || die "3 arguments required, $# provided. Valid invocation:
 
-  bash random-test.sh f impl_directory workarea
+  bash random-test.sh f stubs workarea
 
   - f -- the number of failures to resist
-  - impl_directory -- a path, relative to CWD, to the impl directory, don't include a trailing slash
+  - stubs -- test stub implementation (script or directory)
   - workarea -- a directory in which to place temporary files for testing
 "
 
 N=$((F * 2 + 1))
 
-ERIC=/Users/danking/projects/erlang-phat/eric-test-implementation
-
-DO_IMPL="bash ${ERIC}/do.sh"
-STOP_IMPL="bash ${ERIC}/stopnode.sh"
-REVIVE_IMPL="bash ${ERIC}/revivenode.sh"
-STARTNODES_IMPL="bash ${ERIC}/startnodes.sh"
-VERIFY_IMPL="bash ${ERIC}/verify.sh"
 
 # functions
 
