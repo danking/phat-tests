@@ -39,7 +39,7 @@ function timer_total() {
         if [ $R -le 10000 ];
         then
             bash ${IMPL}/do.sh createfile 5 $N $WORKAREA $CHILD_SEED "$DO_IMPL"
-            NUM_CREATED_FILES=`expr $NUM_CREATED_FILES + 1`
+            NUM_CREATED_FILES=`expr $NUM_CREATED_FILES + 5`
         elif [ $R -le 15000 -a "`wc -l $WORKAREA/stoppednodes | awk {'print $1'}`" -le $F ];
         then
             bash ${IMPL}/stopnode.sh replica $N $WORKAREA $CHILD_SEED "$STOP_IMPL"
@@ -48,7 +48,7 @@ function timer_total() {
             bash ${IMPL}/revivenode.sh $N $WORKAREA $SEED "$REVIVE_IMPL"
         else
             bash ${IMPL}/do.sh createfile 10 $N $WORKAREA $CHILD_SEED "$DO_IMPL"
-            NUM_CREATED_FILES=`expr $NUM_CREATED_FILES + 1`
+            NUM_CREATED_FILES=`expr $NUM_CREATED_FILES + 10`
         fi
     done
 }
